@@ -40,4 +40,14 @@ variable "db_password" {
   sensitive   = true
 }
 
+variable "prod_media_bucket" {
+  description = "S3 Bucket for production media files"
+  type        = string
+  default     = "prod-media-bucket"
+}
 
+variable "account_id" {
+  description = "The AWS account ID to ensure the bucket name is unique"
+  type        = string
+  default     = "223647876635"
+}
