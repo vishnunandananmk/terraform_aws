@@ -1,4 +1,4 @@
-# Create an S3 bucket for Django static and media files
+# Create an S3 bucket with a unique name using the account ID
 resource "aws_s3_bucket" "prod_media" {
   bucket = "${var.prod_media_bucket}-${var.account_id}"  # Use specified account ID for uniqueness
   acl    = "private"  # Ensure all objects are private by default
@@ -22,7 +22,7 @@ resource "aws_s3_bucket_public_access_block" "prod_media_block" {
   restrict_public_buckets = false
 }
 
-# Define a bucket policy allowing public read access only to specific folders
+# Define a bucket policy using the provided policy JSON
 resource "aws_s3_bucket_policy" "prod_media_bucket_policy" {
   bucket = aws_s3_bucket.prod_media.id
 
@@ -30,14 +30,22 @@ resource "aws_s3_bucket_policy" "prod_media_bucket_policy" {
     Version = "2012-10-17",
     Statement = [
       {
-        Sid       = "PublicReadGetObject",
+        Sid       = "VisualEditor0",
         Effect    = "Allow",
         Principal = "*",
-        Action    = "s3:GetObject",
-        Resource  = [
-          "arn:aws:s3:::${aws_s3_bucket.prod_media.id}/media/*",  # Allow public read only for 'media/' directory
-          "arn:aws:s3:::${aws_s3_bucket.prod_media.id}/static/*"  # Allow public read only for 'static/' directory
-        ]
+        Action    = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject"
+        ],
+        Resource  = "arn:aws:s3:::${aws_s3_bucket.prod_media.id}/*"
+      },
+      {
+        Sid       = "VisualEditor1",
+        Effect    = "Allow",
+        Principal = "*",
+        Action    = "s3:ListBucket",
+        Resource  = "arn:aws:s3:::${aws_s3_bucket.prod_media.id}"
       }
     ]
   })
@@ -61,7 +69,8 @@ resource "aws_iam_user_policy" "prod_media_bucket" {
           "s3:PutObject",
           "s3:PutObjectAcl",
           "s3:DeleteObject",
-          "s3:ListBucket"
+          "s3:ListBucket",
+	  "s3:PutBucketPolicy"
         ],
         Resource = [
           "arn:aws:s3:::${aws_s3_bucket.prod_media.id}",
@@ -72,9 +81,7 @@ resource "aws_iam_user_policy" "prod_media_bucket" {
   })
 }
 
-# IAM access key for the IAM user
 resource "aws_iam_access_key" "prod_media_bucket" {
   user = aws_iam_user.prod_media_bucket.name
 }
-
 
