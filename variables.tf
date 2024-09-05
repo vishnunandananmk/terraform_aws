@@ -51,3 +51,8 @@ variable "account_id" {
   type        = string
   default     = "223647876635"
 }
+
+variable "prod_base_domain" {
+  description = "The base domain for the production environment"
+  type        = string
+}
