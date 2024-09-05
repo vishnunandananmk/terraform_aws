@@ -56,8 +56,8 @@ The following AWS services are provisioned through Terraform:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-username/your-repo.git
-   cd your-repo
+   git clone https://github.com/vishnunandananmk/terraform_aws.git
+   cd terraform_aws
    ```
 
 2. **Update Variables**:
