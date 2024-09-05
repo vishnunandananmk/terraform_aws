@@ -6,6 +6,8 @@ This repository contains a Terraform configuration to deploy a production-ready 
 
 This Terraform project automates the deployment of a full-stack production environment on AWS. It leverages various AWS services to handle networking, security, container orchestration, and scaling. The infrastructure is optimized for high availability and includes SSL support, autoscaling, and DNS management. Environment variables such as database and S3 endpoints are passed through AWS CodeBuild and CodePipeline for secure and automated deployments.
 
+Key Highlight: ECS Deployment via AWS Fargate is a major feature of this setup. AWS Fargate is used to manage container deployment without the need to manage the underlying servers, providing a serverless container orchestration experience.
+
 ## Prerequisites
 
 Before using this Terraform configuration, ensure that you have the following:
@@ -26,6 +28,8 @@ Before using this Terraform configuration, ensure that you have the following:
   - Route 53 will display the NS (Name Server) records, which can be manually added to the domain provider. Alternatively, users can automate the domain provider configuration by modifying the Terraform scripts.
 - **Autoscaling**: Automatically scales the ECS cluster based on traffic load.
 - **SSL Support**: SSL certificates are managed through ACM and the application is accessible over HTTPS.
+- **ECS Deployment via AWS Fargate**:
+AWS Fargate is used to run containers without managing servers, providing a fully managed serverless experience for ECS deployments. This ensures easier management and scaling of containerized applications.
 
 ## Terraform Modules and Resources
 
@@ -84,7 +88,7 @@ The following AWS services are provisioned through Terraform:
 
 - **ECR**: Stores Docker images.
 - **VPC, Subnets, Internet Gateway, NAT Gateway**: Handles networking.
-- **ECS**: Runs the application in containers.
+- **ECS (Fargate)**: Manages container deployment with a serverless experience. No need to manage the underlying infrastructure.
 - **Load Balancer (ALB)**: Distributes traffic across multiple containers.
 - **S3**: Stores static and media files.
 - **RDS**: Stores application data using PostgreSQL.
