@@ -94,7 +94,7 @@ The following AWS services are provisioned through Terraform:
 - **RDS**: Stores application data using PostgreSQL.
 - **Route 53**: Manages DNS and domain names.
 - **ACM**: Manages SSL certificates.
-- **Auto Scaling**: Adjusts ECS instances based on demand.
+- **Auto Scaling**: Adjusts ECS containers based on demand.
 
 ## Contributions
 
