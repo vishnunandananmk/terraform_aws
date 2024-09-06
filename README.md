@@ -99,7 +99,3 @@ The following AWS services are provisioned through Terraform:
 ## Contributions
 
 Contributions are welcome! Please create an issue or submit a pull request for any changes or improvements.
-
-## License
-
-This project is licensed under the MIT License.
