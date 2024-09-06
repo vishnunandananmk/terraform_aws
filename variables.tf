@@ -49,7 +49,6 @@ variable "prod_media_bucket" {
 variable "account_id" {
   description = "The AWS account ID to ensure the bucket name is unique"
   type        = string
-  default     = "223647876635"
 }
 
 variable "prod_base_domain" {
